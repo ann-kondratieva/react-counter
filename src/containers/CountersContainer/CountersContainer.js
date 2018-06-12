@@ -2,7 +2,7 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
-import { CounterContainer } from '../CounterContainer/index';
+import { CounterContainer } from '../CounterContainer';
 
 import PropTypes from 'prop-types';
 
