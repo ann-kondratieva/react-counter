@@ -1,19 +1,22 @@
 import React from 'react';
+
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import './Counter.css';
+
+import { containerStyle } from './styles';
+
 import PropTypes from 'prop-types';
 
 
-var Counter = (props) => {
-    return <Grid container spacing={16} style={{ padding: 100 }}>
+var Counter = ({ counter, onIncrementClick, onDecrementClick, onResetClick }) => {
+    return <Grid item xs={3}><Grid container spacing={16} style={containerStyle}>
         <Grid item xs={12}>
             <Grid
                 container
                 spacing={16}
                 alignItems="center"
                 justify="center">
-                <p>{props.counter}</p>
+                <p>{counter}</p>
             </Grid>
         </Grid>
         <Grid item xs={12}>
@@ -23,23 +26,23 @@ var Counter = (props) => {
                 alignItems="center"
                 justify="center">
                 <Grid item >
-                    <Button onClick={props.onIncrementClick} variant="contained" color="primary">
+                    <Button onClick={onIncrementClick} variant="contained" color="primary">
                         Increment
                     </Button>
                 </Grid>
                 <Grid item >
-                    <Button onClick={props.onDecrementClick} variant="contained" color="primary">
+                    <Button onClick={onDecrementClick} variant="contained" color="primary">
                         Decrement
                     </Button>
                 </Grid>
                 <Grid item >
-                    <Button onClick={props.onResetClick} variant="contained" color="primary">
+                    <Button onClick={onResetClick} variant="contained" color="primary">
                         Reset
                     </Button>
                 </Grid>
             </Grid>
         </Grid>
-
+    </Grid>
     </Grid>;
 };
 
@@ -50,4 +53,4 @@ Counter.propTypes = {
     onResetClick: PropTypes.func.isRequired
 };
 
-export default Counter;
+export { Counter };

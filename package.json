@@ -9,6 +9,8 @@
     "eslint-plugin-react": "^7.9.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-id-generator": "^0.1.6",
+    "react-key-index": "^0.1.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
