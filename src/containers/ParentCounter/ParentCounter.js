@@ -5,7 +5,7 @@ import { ManageButtons } from '../../views/ManageButtons';
 
 import idGenerator from 'react-id-generator';
 
-class ParentContainer extends Component {
+class ParentCounter extends Component {
 
     constructor(props) {
         super(props);
@@ -59,4 +59,4 @@ class ParentContainer extends Component {
     }
 }
 
-export { ParentContainer };
+export { ParentCounter };

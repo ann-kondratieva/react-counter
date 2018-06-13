@@ -1,3 +1,3 @@
 export const containerStyle = {
-    padding: 50
+    padding: 80
 };

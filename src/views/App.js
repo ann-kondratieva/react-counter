@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParentContainer } from '../containers/ParentContainer';
+import { RouterContainer } from '../containers/RouterContainer';
 
 const App = () => {
     return (
-        <ParentContainer />
+        <RouterContainer />
     );
 };
 
