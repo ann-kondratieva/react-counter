@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
-import { CountersContainer } from '../CountersContainer';
-import { ManageButtons } from '../../views/ManageButtons';
-
 import idGenerator from 'react-id-generator';
+
+import CountersContainer from './CountersContainer';
+import ManageButtons from '../views/ManageButtons';
 
 class ParentCounter extends Component {
 
@@ -37,10 +36,8 @@ class ParentCounter extends Component {
     }
 
     onResetClick() {
-        let currentIDs = this.state.countersIDs.slice();
-        currentIDs = currentIDs.slice(0, 1);
         this.setState({
-            countersIDs: currentIDs
+            countersIDs: [idGenerator()]
         });
     }
 
@@ -59,4 +56,4 @@ class ParentCounter extends Component {
     }
 }
 
-export { ParentCounter };
+export default ParentCounter;

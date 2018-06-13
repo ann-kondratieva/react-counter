@@ -1,11 +1,8 @@
 import React from 'react';
-
-import Grid from '@material-ui/core/Grid';
-
-import { CounterContainer } from '../CounterContainer';
-
+import CounterContainer from './CounterContainer';
 import PropTypes from 'prop-types';
 
+import Grid from '@material-ui/core/Grid';
 
 var CountersContainer = ({ countersIDs }) => {
     return (
@@ -22,4 +19,4 @@ CountersContainer.propTypes = {
     countersIDs: PropTypes.array.isRequired
 };
 
-export { CountersContainer };
+export default CountersContainer;

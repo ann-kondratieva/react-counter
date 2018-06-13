@@ -1,3 +1,5 @@
-export const containerStyle = {
-    padding: 50
-};
+export const styles = () => ({
+    container: {
+        padding: 50
+    }
+});

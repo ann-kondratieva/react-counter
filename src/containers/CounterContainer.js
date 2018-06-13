@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Counter } from '../../views/Counter';
+import Counter from '../views/Counter';
 
 import PropTypes from 'prop-types';
 
@@ -112,4 +112,4 @@ CounterContainer.propTypes = {
 };
 
 
-export { CounterContainer };
+export default CounterContainer;
