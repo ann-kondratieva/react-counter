@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { styles } from './styles';
 
-var About = ({ classes }) => {
+var AboutUs = ({ classes }) => {
     return (
         <Grid
             container
@@ -43,8 +43,8 @@ var About = ({ classes }) => {
     );
 };
 
-About.propTypes = {
+AboutUs.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(About);
+export default withStyles(styles)(AboutUs);

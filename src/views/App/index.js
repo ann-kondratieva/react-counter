@@ -2,14 +2,14 @@ import React from 'react';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import RouterContainer from '../RouterContainer';
-import theme from './styles';
+import NavigateRouter from '../NavigateRouter';
+import theme from './theme';
 
 
 const App = () => {
     return (
         <MuiThemeProvider theme={theme}>
-            <RouterContainer />
+            <NavigateRouter />
         </MuiThemeProvider>
     );
 };

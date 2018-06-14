@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import idGenerator from 'react-id-generator';
+import PropTypes from 'prop-types';
 
 import CountersContainer from './CountersContainer';
 import ManageButtons from '../views/ManageButtons';
+import TabsContainer from '../../../containers/TabsContainer';
 
-class ParentCounter extends Component {
+class ParentCounterContainer extends Component {
 
     constructor(props) {
         super(props);
@@ -49,6 +51,7 @@ class ParentCounter extends Component {
         };
         return (
             <React.Fragment>
+                <TabsContainer location={this.props.location} />
                 <ManageButtons {...props} />
                 <CountersContainer countersIDs={this.state.countersIDs} />
             </React.Fragment>
@@ -56,4 +59,8 @@ class ParentCounter extends Component {
     }
 }
 
-export default ParentCounter;
+ParentCounterContainer.propTypes = {
+    location: PropTypes.object.isRequired
+};
+
+export default ParentCounterContainer;
