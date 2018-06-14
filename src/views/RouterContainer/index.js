@@ -15,9 +15,10 @@ const RouterContainer = () => {
             <React.Fragment>
                 <NavigateTabsWithRouter />
                 <Switch>
-                    <Route exact path='/about' component={About} />
-                    <Route exact path='/counters' component={ParentCounter} />
-                    <Route path='*' component={ErrorPage} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/about`} component={About} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/counters`} component={ParentCounter} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/`} />
+                    <Route exact path='*' component={ErrorPage} />
                 </Switch>
             </React.Fragment>
         </Router>

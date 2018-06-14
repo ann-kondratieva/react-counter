@@ -14,6 +14,7 @@ class NavigateTabs extends Component {
         this.state = {
             value: props.location.pathname
         };
+        console.log(this.state.value);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -22,11 +23,11 @@ class NavigateTabs extends Component {
     };
 
     static isValidValue(value) {
-        return value === '/about' || value === '/counters' || value === '/';
+        return value === `${process.env.PUBLIC_URL}/about` || value === `${process.env.PUBLIC_URL}/counters` || value === `${process.env.PUBLIC_URL}/`;
     }
 
     static getValidValue(value) {
-        if (value === '/') return false;
+        if (value === `${process.env.PUBLIC_URL}/`) return false;
         else return value;
     }
 
@@ -37,8 +38,8 @@ class NavigateTabs extends Component {
                 {NavigateTabs.isValidValue(value) &&
                     <AppBar title="navigate">
                         <Tabs value={NavigateTabs.getValidValue(value)} onChange={this.handleChange}  >
-                            <Tab value='/about' label="About Us" component={Link} to="/about" />
-                            <Tab value='/counters' label="Counters" component={Link} to="/counters" />
+                            <Tab value={`${process.env.PUBLIC_URL}/about`} label="About Us" component={Link} to={`${process.env.PUBLIC_URL}/about`} />
+                            <Tab value={`${process.env.PUBLIC_URL}/counters`} label="Counters" component={Link} to={`${process.env.PUBLIC_URL}/counters`} />
                         </Tabs>
                     </AppBar>}
             </React.Fragment>
