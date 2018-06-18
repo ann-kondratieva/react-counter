@@ -18,7 +18,6 @@ class CounterContainer extends Component {
 
     UNSAFE_componentWillReceiveProps({ countersNumber }) {
         const prevCountersNumber = this.props.countersNumber;
-        console.log('container will receive props');
         if (prevCountersNumber > countersNumber && CounterContainer.isOdd(this.state.counter)) {
             this.decrementState();
         } else if (prevCountersNumber < countersNumber && CounterContainer.isEven(this.state.counter)) {
@@ -27,7 +26,6 @@ class CounterContainer extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('should container update');
         if (this.state.counter !== nextState.counter) {
             return true;
         } else {
@@ -36,23 +34,18 @@ class CounterContainer extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        console.log('container will mount');
     }
 
     componentDidMount() {
-        console.log('container did mount');
     }
 
     UNSAFE_componentWillUpdate() {
-        console.log('container will update');
     }
 
     componentDidUpdate() {
-        console.log('container did update');
     }
 
     componentWillUnmount() {
-        console.log('container will unmount');
     }
 
     static isEven(number) {
@@ -93,7 +86,6 @@ class CounterContainer extends Component {
     }
 
     render() {
-        console.log('container renders');
         const props = {
             counter: this.state.counter,
             onDecrementClick: this.onDecrementClick,

@@ -1,8 +1,10 @@
+/* global process */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import LoginForm from '../views/LoginForm';
-import TabsContainer from '../../../containers/TabsContainer';
+import { TabsContainer } from '../../../components/tabs';
 
 class LoginContainer extends Component {
 
@@ -13,55 +15,47 @@ class LoginContainer extends Component {
             password: '',
             errorEmail: false,
             errorPassword: false,
-            openDialog: false
+            wasFirstSubmit: false
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onCloseDialog = this.onCloseDialog.bind(this);
+        this.redirectAndClear = this.redirectAndClear.bind(this);
     }
 
     onSubmit(event) {
         event.preventDefault();
-        if (this.state.email === '') {
-            this.setState({ errorEmail: true });
-        } else if (this.state.password === '') {
-            this.setState({ errorPassword: true });
+        if (!this.state.wasFirstSubmit) {
+            this.setState({ wasFirstSubmit: true }, this.redirectAndClear);
         } else {
-            this.setState({ openDialog: true });
-            console.log(JSON.stringify({ email: this.state.email, password: this.state.password }));
+            this.redirectAndClear();
         }
     }
 
-    onCloseDialog() {
-        this.setState({ openDialog: false, email: '', password: '' });
+    redirectAndClear() {
+        if (this.checkStateValues()) {
+            this.props.history.push(`${process.env.PUBLIC_URL}/login/data?email=${this.state.email}&password=${this.state.password}`);
+            this.setState({ email: '', password: '' });
+        }
     }
 
     onChange(event) {
+        var name = event.target.name;
         var value = event.target.value;
-        switch (event.target.name) {
-        case 'email': this.setEmail(value); break;
-        case 'password': this.setPassword(value); break;
-        }
+        this.setState({ [name]: value }, this.checkStateValues);
     }
 
-    setEmail(email) {
-        if (LoginContainer.checkEmail(email)) {
-            this.setState({ email: email, errorEmail: false });
-        } else {
-            this.setState({ email: email, errorEmail: true });
+    checkStateValues() {
+        if (this.state.wasFirstSubmit) {
+            var isValidEmail = LoginContainer.checkEmail(this.state.email);
+            var isValidPassword = LoginContainer.checkPassword(this.state.password);
+            this.setState({ errorEmail: !isValidEmail });
+            this.setState({ errorPassword: !isValidPassword });
         }
-    }
-
-    setPassword(password) {
-        if (LoginContainer.checkPassword(password)) {
-            this.setState({ password: password, errorPassword: false });
-        } else {
-            this.setState({ password: password, errorPassword: true });
-        }
+        return isValidEmail && isValidPassword;
     }
 
     static checkEmail(email) {
-        var isValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+        var isValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
         return isValid;
     }
 
@@ -78,13 +72,12 @@ class LoginContainer extends Component {
             onSubmit: this.onSubmit,
             errorEmail: this.state.errorEmail,
             errorPassword: this.state.errorPassword,
-            openDialog: this.state.openDialog,
             onCloseDialog: this.onCloseDialog
         };
 
         return (
             <React.Fragment>
-                <TabsContainer location={this.props.location} />
+                <TabsContainer location='/login' />
                 <LoginForm {...props} />
             </React.Fragment>
         );
@@ -92,7 +85,7 @@ class LoginContainer extends Component {
 }
 
 LoginContainer.propTypes = {
-    location: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired
 };
 
 export default LoginContainer;

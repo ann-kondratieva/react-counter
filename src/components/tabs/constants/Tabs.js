@@ -2,15 +2,15 @@
 
 export const TABS = [
     {
-        value: `${process.env.PUBLIC_URL}/about`,
+        value: '/about',
         label: 'About Us'
     },
     {
-        value: `${process.env.PUBLIC_URL}/counters`,
+        value: '/counters',
         label: 'Counters'
     },
     {
-        value: `${process.env.PUBLIC_URL}/login`,
+        value: '/login',
         label: 'Login'
     }
 ];

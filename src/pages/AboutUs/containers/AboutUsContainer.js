@@ -1,21 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import TabsContainer from '../../../containers/TabsContainer';
+import { TabsContainer } from '../../../components/tabs';
 import AboutUs from '../views/AboutUs';
 
-var AboutUsContainer = ({ location }) => {
+var AboutUsContainer = () => {
     return (
         <React.Fragment>
-            <TabsContainer location={location} />
+            <TabsContainer location='/about' />
             <AboutUs />
         </React.Fragment>
     );
 
-};
-
-AboutUsContainer.propTypes = {
-    location: PropTypes.object.isRequired
 };
 
 export default AboutUsContainer;

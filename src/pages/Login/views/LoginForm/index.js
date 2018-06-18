@@ -6,15 +6,10 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Typography } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { styles } from './styles';
 
-var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, errorPassword, openDialog, onCloseDialog }) => {
+var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, errorPassword }) => {
     return (
         <React.Fragment>
             <Grid
@@ -32,6 +27,7 @@ var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, err
                             onChange={onChange}
                             margin="normal"
                             error={errorEmail}
+                            helperText="Example: default@example.com"
                         />
                     </Grid>
                     <Grid item xs={12}  >
@@ -45,6 +41,7 @@ var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, err
                             onChange={onChange}
                             margin="normal"
                             error={errorPassword}
+                            helperText="Password should contain at least 6 characters"
                         />
                     </Grid>
                     <Grid item xs={12}  >
@@ -68,24 +65,6 @@ var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, err
                     </Grid>
                 </Grid>
             </Grid>
-            <Dialog
-                open={openDialog}
-                onClose={onCloseDialog}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">{'Your data'}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Email: {email} <br />
-                        Password: {password}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onCloseDialog} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </React.Fragment>
     );
 };
@@ -97,9 +76,7 @@ LoginForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     errorPassword: PropTypes.bool.isRequired,
-    errorEmail: PropTypes.bool.isRequired,
-    openDialog: PropTypes.bool.isRequired,
-    onCloseDialog: PropTypes.func.isRequired
+    errorEmail: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(LoginForm);
