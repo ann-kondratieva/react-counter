@@ -22,7 +22,7 @@ class DialogContainer extends Component {
         const params = new URLSearchParams(search);
         const email = params.get('email');
         const password = params.get('password');
-        var newOpenDialog = (nextProps.openDialog === null) ? false : true;
+        const newOpenDialog = nextProps.openDialog !== null && email !== null && password !== null;
         this.setState({ openDialog: newOpenDialog, email, password });
     }
 
@@ -32,10 +32,11 @@ class DialogContainer extends Component {
     }
 
     render() {
+        const { openDialog, email, password } = this.state;
         const props = {
-            openDialog: this.state.openDialog,
-            email: this.state.email,
-            password: this.state.password,
+            openDialog: openDialog,
+            email: email,
+            password: password,
             onCloseDialog: this.onCloseDialog
         };
 

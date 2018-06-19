@@ -3,7 +3,7 @@ import idGenerator from 'react-id-generator';
 
 import CountersContainer from './CountersContainer';
 import ManageButtons from '../views/ManageButtons';
-import { TabsContainer } from '../../../components/tabs';
+import TabsContainer from '../../../components/Tabs';
 
 class ParentCounterContainer extends Component {
 

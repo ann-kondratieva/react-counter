@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TabsContainer } from '../../../components/tabs';
+import TabsContainer from '../../../components/Tabs';
 import AboutUs from '../views/AboutUs';
 
 var AboutUsContainer = () => {

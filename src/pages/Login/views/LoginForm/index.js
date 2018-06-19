@@ -11,61 +11,59 @@ import { styles } from './styles';
 
 var LoginForm = ({ classes, email, password, onSubmit, onChange, errorEmail, errorPassword }) => {
     return (
-        <React.Fragment>
-            <Grid
-                container
-                alignItems="center"
-                justify="center">
-                <form className={classes.container}>
-                    <Grid item xs={12}  >
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Email"
-                            className={classes.textField}
-                            value={email}
-                            onChange={onChange}
-                            margin="normal"
-                            error={errorEmail}
-                            helperText="Example: default@example.com"
-                        />
-                    </Grid>
-                    <Grid item xs={12}  >
-                        <TextField
-                            id="password"
-                            label="Password"
-                            name="password"
-                            type="password"
-                            className={classes.textField}
-                            value={password}
-                            onChange={onChange}
-                            margin="normal"
-                            error={errorPassword}
-                            helperText="Password should contain at least 6 characters"
-                        />
-                    </Grid>
-                    <Grid item xs={12}  >
-                        <Grid
-                            container
-                            alignItems="center"
-                            justify="center">
-                            <Button type="submit" className={classes.submitButton} onClick={onSubmit}
-                                variant="contained" color="primary" disabled={errorEmail || errorPassword}>
-                                Submit
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </form>
+        <Grid
+            container
+            alignItems="center"
+            justify="center">
+            <form className={classes.container}>
+                <Grid item xs={12}  >
+                    <TextField
+                        id="email"
+                        name="email"
+                        label="Email"
+                        className={classes.textField}
+                        value={email}
+                        onChange={onChange}
+                        margin="normal"
+                        error={errorEmail}
+                        helperText="Example: default@example.com"
+                    />
+                </Grid>
+                <Grid item xs={12}  >
+                    <TextField
+                        id="password"
+                        label="Password"
+                        name="password"
+                        type="password"
+                        className={classes.textField}
+                        value={password}
+                        onChange={onChange}
+                        margin="normal"
+                        error={errorPassword}
+                        helperText="Password should contain at least 6 characters"
+                    />
+                </Grid>
                 <Grid item xs={12}  >
                     <Grid
                         container
                         alignItems="center"
                         justify="center">
-                        <Typography>Your Data: {email} {password}</Typography>
+                        <Button type="submit" className={classes.submitButton} onClick={onSubmit}
+                            variant="contained" color="primary" disabled={errorEmail || errorPassword}>
+                            Submit
+                        </Button>
                     </Grid>
                 </Grid>
+            </form>
+            <Grid item xs={12}  >
+                <Grid
+                    container
+                    alignItems="center"
+                    justify="center">
+                    <Typography>Your Data: {email} {password}</Typography>
+                </Grid>
             </Grid>
-        </React.Fragment>
+        </Grid>
     );
 };
 

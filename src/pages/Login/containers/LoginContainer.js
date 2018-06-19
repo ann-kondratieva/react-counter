@@ -2,9 +2,11 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import qs from 'qs';
 
 import LoginForm from '../views/LoginForm';
-import { TabsContainer } from '../../../components/tabs';
+import TabsContainer from '../../../components/Tabs';
+import { REGEXP } from '../constants';
 
 class LoginContainer extends Component {
 
@@ -33,46 +35,44 @@ class LoginContainer extends Component {
 
     redirectAndClear() {
         if (this.checkStateValues()) {
-            this.props.history.push(`${process.env.PUBLIC_URL}/login/data?email=${this.state.email}&password=${this.state.password}`);
+            const { email, password } = this.state;
+            const data = {
+                email, password
+            };
+            this.props.history.push(`${process.env.PUBLIC_URL}/login/data?${qs.stringify(data)}`);
             this.setState({ email: '', password: '' });
         }
     }
 
     onChange(event) {
-        var name = event.target.name;
-        var value = event.target.value;
+        const { name, value } = event.target;
         this.setState({ [name]: value }, this.checkStateValues);
     }
 
     checkStateValues() {
-        if (this.state.wasFirstSubmit) {
-            var isValidEmail = LoginContainer.checkEmail(this.state.email);
-            var isValidPassword = LoginContainer.checkPassword(this.state.password);
-            this.setState({ errorEmail: !isValidEmail });
-            this.setState({ errorPassword: !isValidPassword });
+        const { wasFirstSubmit, email, password } = this.state;
+        if (wasFirstSubmit) {
+            var isValidEmail = LoginContainer.checkValue(email, REGEXP.email);
+            var isValidPassword = LoginContainer.checkValue(password, REGEXP.password);
+            this.setState({ errorEmail: !isValidEmail, errorPassword: !isValidPassword });
         }
         return isValidEmail && isValidPassword;
     }
 
-    static checkEmail(email) {
-        var isValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-        return isValid;
-    }
-
-    static checkPassword(password) {
-        var isValid = /\w{6,}/.test(password);
+    static checkValue(value, regexp) {
+        const isValid = regexp.test(value);
         return isValid;
     }
 
     render() {
+        const { email, password, errorEmail, errorPassword } = this.state;
         const props = {
-            email: this.state.email,
-            password: this.state.password,
+            email: email,
+            password: password,
             onChange: this.onChange,
             onSubmit: this.onSubmit,
-            errorEmail: this.state.errorEmail,
-            errorPassword: this.state.errorPassword,
-            onCloseDialog: this.onCloseDialog
+            errorEmail: errorEmail,
+            errorPassword: errorPassword
         };
 
         return (

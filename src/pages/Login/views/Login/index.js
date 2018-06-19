@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import LoginContainer from '../../containers/LoginContainer';
-import DialogContainer from '../../../../components/dialog';
+import DialogContainer from '../../../../components/Dialog';
 
 var Login = (props) => {
     return (

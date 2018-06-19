@@ -12,5 +12,9 @@ export const TABS = [
     {
         value: '/login',
         label: 'Login'
+    },
+    {
+        value: '/login-redux',
+        label: 'Login with Redux'
     }
 ];
