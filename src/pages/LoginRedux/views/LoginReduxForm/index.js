@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 
 import { styles } from './styles';
 
-var LoginReduxForm = ({ classes, email, password, onSubmit, onChange, isEmailError, isPasswordError }) => {
+var LoginReduxForm = ({ classes, email, password, onSubmit, onChange, isEmailError, isPasswordError, showError }) => {
     return (
         <React.Fragment>
             <Grid
@@ -26,7 +26,7 @@ var LoginReduxForm = ({ classes, email, password, onSubmit, onChange, isEmailErr
                             value={email}
                             onChange={onChange}
                             margin="normal"
-                            error={isEmailError}
+                            error={isEmailError && showError}
                             helperText="Example: default@example.com"
                         />
                     </Grid>
@@ -40,7 +40,7 @@ var LoginReduxForm = ({ classes, email, password, onSubmit, onChange, isEmailErr
                             value={password}
                             onChange={onChange}
                             margin="normal"
-                            error={isPasswordError}
+                            error={isPasswordError && showError}
                             helperText="Password should contain at least 6 characters"
                         />
                     </Grid>
@@ -50,7 +50,7 @@ var LoginReduxForm = ({ classes, email, password, onSubmit, onChange, isEmailErr
                             alignItems="center"
                             justify="center">
                             <Button type="submit" className={classes.submitButton} onClick={onSubmit}
-                                variant="contained" color="primary" disabled={isEmailError || isPasswordError}>
+                                variant="contained" color="primary" disabled={(isEmailError || isPasswordError) && showError}>
                                 Submit
                             </Button>
                         </Grid>
@@ -76,7 +76,8 @@ LoginReduxForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     isPasswordError: PropTypes.bool,
-    isEmailError: PropTypes.bool
+    isEmailError: PropTypes.bool,
+    showError: PropTypes.bool
 };
 
 export default withStyles(styles)(LoginReduxForm);

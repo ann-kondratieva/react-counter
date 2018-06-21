@@ -1,21 +1,20 @@
 import { handleActions } from 'redux-actions';
 
-import LOGIN_TYPES from '../../types/login';
+import loginActionCreators from '../../actions/login';
 
-let initialState = {
-    password: ''
-};
+let initialState = '';
 
-const passwordReducer = handleActions(
+const password = handleActions(
     {
-        [LOGIN_TYPES.SET_PASSWORD]: (state, action) => ({
-            password: action.payload
-        }),
-        [LOGIN_TYPES.EXIT]: () => ({
-            password: ''
-        }),
+        [loginActionCreators.setPassword]: (state, action) => {
+            return action.payload;
+        },
+        [loginActionCreators.exit]: () => {
+            return initialState;
+        },
     },
     initialState
 );
 
-export default passwordReducer;
+export default password;
+

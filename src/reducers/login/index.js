@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-import emailReducer from './email';
-import passwordReducer from './password';
-import firstSubmitReducer from './firstSubmit';
-import loginSuccessReducer from './loginSuccess';
+import email from './email';
+import password from './password';
+import firstSubmit from './firstSubmit';
+import loginSuccess from './loginSuccess';
 
-const loginReducer = combineReducers({
-    emailReducer,
-    passwordReducer,
-    firstSubmitReducer,
-    loginSuccessReducer
+const login = combineReducers({
+    email,
+    password,
+    firstSubmit,
+    loginSuccess
 });
 
-export default loginReducer;
+export default login;

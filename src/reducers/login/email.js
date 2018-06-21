@@ -1,21 +1,19 @@
 import { handleActions } from 'redux-actions';
 
-import LOGIN_TYPES from '../../types/login';
+import loginActionCreators from '../../actions/login';
 
-let initialState = {
-    email: ''
-};
+let initialState = '';
 
-const emailReducer = handleActions(
+const email = handleActions(
     {
-        [LOGIN_TYPES.SET_EMAIL]: (state, action) => ({
-            email: action.payload
-        }),
-        [LOGIN_TYPES.EXIT]: () => ({
-            email: ''
-        }),
+        [loginActionCreators.setEmail]: (state, action) => {
+            return action.payload;
+        },
+        [loginActionCreators.exit]: () => {
+            return initialState;
+        },
     },
     initialState
 );
 
-export default emailReducer;
+export default email;

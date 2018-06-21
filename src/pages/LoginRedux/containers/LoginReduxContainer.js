@@ -28,7 +28,7 @@ class LoginReduxContainer extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const { wasFirstSubmit, setFirstSubmit, setLoginSuccess, isEmailError, isPasswordError } = this.props;
+        const { wasFirstSubmit, isEmailError, isPasswordError, actions: { setFirstSubmit, setLoginSuccess } } = this.props;
         if (!wasFirstSubmit) {
             setFirstSubmit();
         }
@@ -43,7 +43,7 @@ class LoginReduxContainer extends Component {
     }
 
     setFormValue(name, value) {
-        const { setEmail, setPassword } = this.props;
+        const { actions: { setEmail, setPassword } } = this.props;
         switch (name) {
         case 'email': setEmail(value); break;
         case 'password': setPassword(value); break;
@@ -51,14 +51,15 @@ class LoginReduxContainer extends Component {
     }
 
     render() {
-        const { email, password, isEmailError, isPasswordError } = this.props;
+        const { email, password, isEmailError, isPasswordError, wasFirstSubmit } = this.props;
         const props = {
             email,
             password,
             onChange: this.onChange,
             isEmailError,
             isPasswordError,
-            onSubmit: this.onSubmit
+            onSubmit: this.onSubmit,
+            showError: wasFirstSubmit
         };
         return (
             <React.Fragment>
@@ -81,25 +82,20 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        setFirstSubmit: loginActionCreators.setFirstSubmit,
-        setLoginSuccess: loginActionCreators.loginSuccess,
-        setEmail: loginActionCreators.setEmail,
-        setPassword: loginActionCreators.setPassword
-    }, dispatch);
+    return {
+        actions: bindActionCreators(loginActionCreators, dispatch)
+    };
 }
 
 LoginReduxContainer.propTypes = {
     history: PropTypes.object.isRequired,
     wasFirstSubmit: PropTypes.bool,
-    setFirstSubmit: PropTypes.func,
-    setLoginSuccess: PropTypes.func,
     isEmailError: PropTypes.bool,
     isPasswordError: PropTypes.bool,
     email: PropTypes.string,
     password: PropTypes.string,
-    setEmail: PropTypes.func,
-    setPassword: PropTypes.func
+    actions: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginReduxContainer);
+

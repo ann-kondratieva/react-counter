@@ -1,21 +1,19 @@
 import { handleActions } from 'redux-actions';
 
-import LOGIN_TYPES from '../../types/login';
+import loginActionCreators from '../../actions/login';
 
-let initialState = {
-    firstSubmit: false
-};
+let initialState = false;
 
-const firstSubmitReducer = handleActions(
+const firstSubmit = handleActions(
     {
-        [LOGIN_TYPES.SET_FIRST_SUBMIT]: () => ({
-            firstSubmit: true
-        }),
-        [LOGIN_TYPES.EXIT]: () => ({
-            firstSubmit: false
-        }),
+        [loginActionCreators.setFirstSubmit]: () => {
+            return true;
+        },
+        [loginActionCreators.exit]: () => {
+            return initialState;
+        },
     },
     initialState
 );
 
-export default firstSubmitReducer;
+export default firstSubmit;

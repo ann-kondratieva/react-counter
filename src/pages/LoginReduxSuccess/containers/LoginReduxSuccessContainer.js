@@ -18,7 +18,7 @@ class LoginReduxSuccessContainer extends Component {
     }
 
     onExitClick() {
-        const { exit, history } = this.props;
+        const { history, actions: { exit } } = this.props;
         exit();
         history.push(`${process.env.PUBLIC_URL}/login-redux`);
     }
@@ -48,16 +48,16 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        exit: loginActionCreators.exit
-    }, dispatch);
+    return {
+        actions: bindActionCreators(loginActionCreators, dispatch)
+    };
 }
 
 LoginReduxSuccessContainer.propTypes = {
     history: PropTypes.object.isRequired,
     email: PropTypes.string,
     password: PropTypes.string,
-    exit: PropTypes.func
+    actions: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginReduxSuccessContainer);

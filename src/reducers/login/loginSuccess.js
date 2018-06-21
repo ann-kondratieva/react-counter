@@ -1,21 +1,20 @@
 import { handleActions } from 'redux-actions';
 
-import LOGIN_TYPES from '../../types/login';
+import loginActionCreators from '../../actions/login';
 
-let initialState = {
-    loginSuccess: false
-};
+let initialState = false;
 
-const loginSuccessReducer = handleActions(
+const loginSuccess = handleActions(
     {
-        [LOGIN_TYPES.LOGIN_SUCCESS]: () => ({
-            loginSuccess: true
-        }),
-        [LOGIN_TYPES.EXIT]: () => ({
-            loginSuccess: false
-        }),
+        [loginActionCreators.setLoginSuccess]: () => {
+            return true;
+        },
+        [loginActionCreators.exit]: () => {
+            return initialState;
+        },
     },
     initialState
 );
 
-export default loginSuccessReducer;
+export default loginSuccess;
+
