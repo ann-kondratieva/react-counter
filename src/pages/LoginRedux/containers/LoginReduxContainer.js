@@ -3,11 +3,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import LoginReduxForm from '../views/LoginReduxForm';
 import TabsContainer from '../../../components/Tabs';
-import { REGEXP } from '../constants';
-import loginActions from '../../../actions/login';
+import loginActionCreators from '../../../actions/login';
+import loginSelectors from '../../../selectors/login';
 
 class LoginReduxContainer extends Component {
 
@@ -15,15 +16,11 @@ class LoginReduxContainer extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.checkStateValues = this.checkStateValues.bind(this);
+        this.setFormValue - this.setFormValue.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        const { email, password, wasFirstSubmit, loginSuccess } = nextProps;
-        const propsChanged = wasFirstSubmit && (email !== this.props.email || password !== this.props.password);
-        if (propsChanged) {
-            this.checkStateValues();
-        }
+        const { loginSuccess } = nextProps;
         if (loginSuccess) {
             this.props.history.push(`${process.env.PUBLIC_URL}/login-redux/success`);
         }
@@ -31,43 +28,36 @@ class LoginReduxContainer extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const { wasFirstSubmit, dispatch } = this.props;
+        const { wasFirstSubmit, setFirstSubmit, setLoginSuccess, isEmailError, isPasswordError } = this.props;
         if (!wasFirstSubmit) {
-            dispatch(loginActions.setFirstSubmit());
+            setFirstSubmit();
         }
-        if (this.checkStateValues()) {
-            dispatch(loginActions.loginSuccess());
+        if (isEmailError === false && isPasswordError === false) {
+            setLoginSuccess();
         }
     }
 
     onChange(event) {
         const { name, value } = event.target;
-        const { dispatch } = this.props;
-        dispatch(loginActions.setFormValue(name, value));
+        this.setFormValue(name, value);
     }
 
-    checkStateValues() {
-        const { email, password, dispatch } = this.props;
-        var isValidEmail = LoginReduxContainer.checkValue(email, REGEXP.email);
-        var isValidPassword = LoginReduxContainer.checkValue(password, REGEXP.password);
-        dispatch(loginActions.setError('Email', !isValidEmail));
-        dispatch(loginActions.setError('Password', !isValidPassword));
-        return isValidEmail && isValidPassword;
-    }
-
-    static checkValue(value, regexp) {
-        const isValid = regexp.test(value);
-        return isValid;
+    setFormValue(name, value) {
+        const { setEmail, setPassword } = this.props;
+        switch (name) {
+        case 'email': setEmail(value); break;
+        case 'password': setPassword(value); break;
+        }
     }
 
     render() {
-        const { email, password, errorEmail, errorPassword } = this.props;
+        const { email, password, isEmailError, isPasswordError } = this.props;
         const props = {
             email,
             password,
             onChange: this.onChange,
-            errorEmail,
-            errorPassword,
+            isEmailError,
+            isPasswordError,
             onSubmit: this.onSubmit
         };
         return (
@@ -80,19 +70,36 @@ class LoginReduxContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    const { wasFirstSubmit, email, password, errorEmail, errorPassword, loginSuccess } = state;
     return {
-        wasFirstSubmit,
-        email,
-        password,
-        errorEmail,
-        errorPassword,
-        loginSuccess
+        wasFirstSubmit: loginSelectors.wasFirstSubmit(state),
+        email: loginSelectors.getEmail(state),
+        password: loginSelectors.getPassword(state),
+        loginSuccess: loginSelectors.isLoginSuccess(state),
+        isEmailError: loginSelectors.isEmailError(state),
+        isPasswordError: loginSelectors.isPasswordError(state)
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        setFirstSubmit: loginActionCreators.setFirstSubmit,
+        setLoginSuccess: loginActionCreators.loginSuccess,
+        setEmail: loginActionCreators.setEmail,
+        setPassword: loginActionCreators.setPassword
+    }, dispatch);
+}
+
 LoginReduxContainer.propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    wasFirstSubmit: PropTypes.bool,
+    setFirstSubmit: PropTypes.func,
+    setLoginSuccess: PropTypes.func,
+    isEmailError: PropTypes.bool,
+    isPasswordError: PropTypes.bool,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    setEmail: PropTypes.func,
+    setPassword: PropTypes.func
 };
 
-export default connect(mapStateToProps)(LoginReduxContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginReduxContainer);

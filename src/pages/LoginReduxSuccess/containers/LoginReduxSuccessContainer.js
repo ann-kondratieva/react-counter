@@ -1,10 +1,14 @@
+/* global process */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import TabsContainer from '../../../components/Tabs';
 import LoginReduxSuccess from '../views/LoginReduxSuccess';
-import loginActions from '../../../actions/login';
-
+import loginActionCreators from '../../../actions/login';
+import loginSelectors from '../../../selectors/login';
 
 class LoginReduxSuccessContainer extends Component {
 
@@ -14,8 +18,9 @@ class LoginReduxSuccessContainer extends Component {
     }
 
     onExitClick() {
-        this.props.dispatch(loginActions.exit());
-        this.props.history.push(`${process.env.PUBLIC_URL}/login-redux`);
+        const { exit, history } = this.props;
+        exit();
+        history.push(`${process.env.PUBLIC_URL}/login-redux`);
     }
 
     render() {
@@ -36,11 +41,23 @@ class LoginReduxSuccessContainer extends Component {
 };
 
 function mapStateToProps(state) {
-    const { email, password } = state;
     return {
-        email,
-        password
+        email: loginSelectors.getEmail(state),
+        password: loginSelectors.getPassword(state)
     };
 }
 
-export default connect(mapStateToProps)(LoginReduxSuccessContainer);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        exit: loginActionCreators.exit
+    }, dispatch);
+}
+
+LoginReduxSuccessContainer.propTypes = {
+    history: PropTypes.object.isRequired,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    exit: PropTypes.func
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginReduxSuccessContainer);
