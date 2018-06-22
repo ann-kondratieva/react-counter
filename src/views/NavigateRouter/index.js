@@ -11,6 +11,8 @@ import Home from '../../pages/Home';
 import AboutUsContainer from '../../pages/AboutUs';
 import LoginReduxContainer from '../../pages/LoginRedux';
 import LoginReduxSuccessContainer from '../../pages/LoginReduxSuccess';
+import LoginReduxFormContainer from '../../pages/LoginReduxForm/containers/LoginReduxFormContainer';
+import LoginReduxFormSuccessContainer from '../../pages/LoginReduxFormSuccess';
 
 const history = createBrowserHistory();
 
@@ -23,6 +25,8 @@ const NavigateRouter = () => {
                     <Route exact path={`${process.env.PUBLIC_URL}/counters`} component={ParentCounterContainer} />
                     <Route path={`${process.env.PUBLIC_URL}/login`} component={Login} />
                     <Route exact path={`${process.env.PUBLIC_URL}/login-redux`} component={LoginReduxContainer} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/login-redux-form`} component={LoginReduxFormContainer} />
+                    <Route exact path={`${process.env.PUBLIC_URL}/login-redux-form/success`} component={LoginReduxFormSuccessContainer} />
                     <Route exact path={`${process.env.PUBLIC_URL}/login-redux/success`} component={LoginReduxSuccessContainer} />
                     <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
                     <Route exact path='*' component={ErrorPage} />

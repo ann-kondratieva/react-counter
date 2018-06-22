@@ -6,6 +6,7 @@ const loginActionCreators = {
     setFirstSubmit: createAction('SET_FIRST_SUBMIT'),
     exit: createAction('EXIT'),
     setLoginSuccess: createAction('LOGIN_SUCCESS'),
+    setFormData: createAction('SET_FORM_DATA')
 };
 
 export default loginActionCreators;

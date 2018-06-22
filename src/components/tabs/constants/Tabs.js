@@ -16,5 +16,9 @@ export const TABS = [
     {
         value: '/login-redux',
         label: 'Login with Redux'
+    },
+    {
+        value: '/login-redux-form',
+        label: 'Login with Redux Form'
     }
 ];
