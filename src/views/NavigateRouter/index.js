@@ -11,7 +11,7 @@ import Home from '../../pages/Home';
 import AboutUsContainer from '../../pages/AboutUs';
 import LoginReduxContainer from '../../pages/LoginRedux';
 import LoginReduxSuccessContainer from '../../pages/LoginReduxSuccess';
-import LoginReduxFormContainer from '../../pages/LoginReduxForm/containers/LoginReduxFormContainer';
+import LoginReduxFormContainer from '../../pages/LoginReduxForm';
 import LoginReduxFormSuccessContainer from '../../pages/LoginReduxFormSuccess';
 
 const history = createBrowserHistory();

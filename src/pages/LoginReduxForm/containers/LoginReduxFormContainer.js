@@ -4,13 +4,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { getFormValues } from 'redux-form';
 
 import LoginReduxForm from '../views/LoginReduxForm';
 import TabsContainer from '../../../components/Tabs';
-import loginActionCreators from '../../../actions/login';
-import loginSelectors from '../../../selectors/login';
+import userActionCreators from '../../../actions/login';
 import FormValues from '../views/FormValues';
+import { LOGIN_FORM } from '../../../constants/form';
+import { validate } from '../utils/validate';
 
 class LoginReduxFormContainer extends Component {
 
@@ -20,20 +21,28 @@ class LoginReduxFormContainer extends Component {
     }
 
     handleSubmit(values) {
-        const { setFormData } = this.props.actions;
-        setFormData(values);
+        const { setUserData } = this.props.actions;
+        setUserData(values);
         this.props.history.push(`${process.env.PUBLIC_URL}/login-redux-form/success`);
     }
 
     render() {
+        const { formValues } = this.props;
+        const initialValues = {
+            email: '',
+            password: ''
+        };
         const props = {
-            onSubmit: this.handleSubmit
+            onSubmit: this.handleSubmit,
+            form: LOGIN_FORM,
+            validate,
+            initialValues
         };
         return (
             <React.Fragment>
                 <TabsContainer location='/login-redux-form' />
                 <LoginReduxForm {...props} />
-                <FormValues />
+                <FormValues formValues={formValues ? formValues : initialValues} />
             </React.Fragment>
         );
     }
@@ -41,20 +50,21 @@ class LoginReduxFormContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        formData: loginSelectors.getFormData(state)
+        formValues: getFormValues(LOGIN_FORM)(state)
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(loginActionCreators, dispatch)
+        actions: bindActionCreators(userActionCreators, dispatch)
     };
 }
 
 
 LoginReduxFormContainer.propTypes = {
     history: PropTypes.object.isRequired,
-    actions: PropTypes.object
+    actions: PropTypes.object,
+    formValues: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginReduxFormContainer);

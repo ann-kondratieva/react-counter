@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 import TabsContainer from '../../../components/Tabs';
 import LoginReduxSuccess from '../views/LoginReduxSuccess';
-import loginActionCreators from '../../../actions/login';
-import loginSelectors from '../../../selectors/login';
+import userActionCreators from '../../../actions/user';
+import userSelectors from '../../../selectors/user';
 
 class LoginReduxFormSuccessContainer extends Component {
 
@@ -24,9 +24,9 @@ class LoginReduxFormSuccessContainer extends Component {
     }
 
     render() {
-        const { formData } = this.props;
+        const { userData } = this.props;
         const props = {
-            formData,
+            userData,
             onExitClick: this.onExitClick
         };
         return (
@@ -41,19 +41,19 @@ class LoginReduxFormSuccessContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        formData: loginSelectors.getFormData(state)
+        userData: userSelectors.getUserData(state)
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(loginActionCreators, dispatch)
+        actions: bindActionCreators(userActionCreators, dispatch)
     };
 }
 
 LoginReduxFormSuccessContainer.propTypes = {
     history: PropTypes.object.isRequired,
-    formData: PropTypes.object,
+    userData: PropTypes.object,
     actions: PropTypes.object
 };
 

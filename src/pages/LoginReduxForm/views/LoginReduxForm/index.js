@@ -1,61 +1,15 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
 
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
 import { styles } from './styles';
 
-import { checkEmail, checkPassword } from '../../../../utils/login/validation';
+import RenderTextField from '../RenderTextField';
 
-const validate = values => {
-    const errors = {};
-    const requiredFields = [
-        'email',
-        'password'
-    ];
-    requiredFields.forEach(field => {
-        if (!values[field]) {
-            errors[field] = true;
-        }
-    });
-    const { email, password } = values;
-    if (
-        email &&
-        !checkEmail(email)
-    ) {
-        errors.email = true;
-    }
-
-    if (
-        password &&
-        !checkPassword(password)
-    ) {
-        errors.password = true;
-    }
-    return errors;
-};
-
-const renderTextField = ({
-    input,
-    label,
-    meta: { touched, error },
-    ...custom
-}) => {
-    return (
-        < TextField
-            error={touched && error}
-            placeholder={label}
-            {...input}
-            {...custom}
-        />
-    );
-};
-
-const LoginReduxForm = props => {
-    const { handleSubmit, pristine, submitting, classes } = props;
+const LoginReduxForm = ({ handleSubmit, pristine, submitting, classes }) => {
     return (
         <Grid
             container
@@ -66,7 +20,7 @@ const LoginReduxForm = props => {
                     <Field
                         className={classes.textField}
                         name="email"
-                        component={renderTextField}
+                        component={RenderTextField}
                         label="Email"
                         helperText="Example: default@example.com"
                         margin="normal"
@@ -77,7 +31,7 @@ const LoginReduxForm = props => {
                     <Field
                         className={classes.textField}
                         name="password"
-                        component={renderTextField}
+                        component={RenderTextField}
                         label="Password"
                         margin="normal"
                         helperText="Password should contain at least 6 characters"
@@ -100,8 +54,12 @@ const LoginReduxForm = props => {
     );
 };
 
-export default reduxForm({
-    form: 'LoginReduxForm',
-    validate
-})(withStyles(styles)(LoginReduxForm));
+LoginReduxForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    pristine: PropTypes.bool.isRequired,
+    submitting: PropTypes.bool.isRequired,
+    classes: PropTypes.object.isRequired
+};
+
+export default reduxForm()(withStyles(styles)(LoginReduxForm));
 

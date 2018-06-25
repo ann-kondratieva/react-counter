@@ -6,7 +6,6 @@ const getEmail = state => state.login.email;
 const getPassword = state => state.login.password;
 const wasFirstSubmit = state => state.login.firstSubmit;
 const isLoginSuccess = state => state.login.loginSuccess;
-const getFormData = state => state.login.formData;
 
 const isEmailError = createSelector(
     [getEmail],
@@ -28,8 +27,7 @@ const loginSelectors = {
     isEmailError,
     isPasswordError,
     wasFirstSubmit,
-    isLoginSuccess,
-    getFormData
+    isLoginSuccess
 };
 
 export default loginSelectors;

@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { styles } from './styles';
 
-const LoginReduxSuccess = ({ classes, formData: { email, password }, onExitClick }) => {
+const LoginReduxSuccess = ({ classes, userData: { email, password }, onExitClick }) => {
     return (
         <React.Fragment>
             <Grid className={classes.container}
@@ -35,7 +35,7 @@ const LoginReduxSuccess = ({ classes, formData: { email, password }, onExitClick
 
 LoginReduxSuccess.propTypes = {
     classes: PropTypes.object.isRequired,
-    formData: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired,
     onExitClick: PropTypes.func.isRequired
 };
 
